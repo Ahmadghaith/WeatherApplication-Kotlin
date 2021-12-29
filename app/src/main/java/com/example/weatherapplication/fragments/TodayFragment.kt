@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import com.example.weatherapplication.R
+import retrofit2.Retrofit
 
 class TodayFragment : Fragment() {
 
@@ -21,8 +23,13 @@ class TodayFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_today, container, false)
 
+        val search = view.findViewById<SearchView>(R.id.search)
 
-
+        //Retrofit instance
+        /*val rertofit = Retrofit.Builder()
+            .baseUrl("https://api.openweathermap.org/data/2.5/weather")
+            .build()
+*/
         return view
     }
 }
