@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/todayFragment"
+        android:icon="@drawable/today"
+        android:title="@string/today" />
+    <item
+        android:id="@+id/forecastFragment"
+        android:icon="@drawable/calendar7"
+        android:title="@string/forecast" />
+    <item
+        android:id="@+id/mapsFragment"
+        android:icon="@drawable/maps"
+        android:title="@string/maps" />
+
+</menu>
