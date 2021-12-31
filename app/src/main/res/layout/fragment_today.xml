@@ -330,7 +330,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/rl8"
         android:layout_marginTop="2dp"
-        android:padding="10dp"
         android:orientation="horizontal"
         android:weightSum="100">
 
@@ -345,8 +344,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="5dp"
-                android:orientation="horizontal">
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="horizontal"
+
+                android:padding="5dp">
 
                 <ImageView
                     android:id="@+id/sunr"
@@ -365,7 +366,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/comfortaa_bold"
                         android:gravity="center"
-                        android:text="Sunrise:" />
+                        android:text="Sunrise: " />
 
 
                     <TextView
@@ -377,7 +378,6 @@
                         android:gravity="center"
                         android:text="5:03 AM" />
                 </LinearLayout>
-
 
 
             </LinearLayout>
@@ -394,8 +394,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal|center_vertical"
-                android:padding="5dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <ImageView
                     android:id="@+id/suns"
@@ -411,7 +411,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/comfortaa_bold"
                     android:gravity="center"
-                    android:text="Sunset:" />
+                    android:text="Sunset: " />
 
 
                 <TextView
@@ -430,6 +430,11 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="232dp"
+        android:layout_height="119dp"
+        android:text="TextView" />
 
 
 </RelativeLayout>
