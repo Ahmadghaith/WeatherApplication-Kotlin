@@ -14,18 +14,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        android:layout_margin="10dp"
+        android:background="@drawable/rounded_searchbar"
+        android:orientation="horizontal">
 
-        <SearchView
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="2dp"
-            android:layout_weight="100"
-            android:background="@drawable/searchbar"
-            android:paddingLeft="10dp"
-            android:queryHint="@string/search" />
+
+
+        <EditText
+            android:id="@+id/editCity"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:background="@drawable/rounded_searchbar"
+            android:hint="@string/city_name_here"
+            android:inputType="textPersonName"
+            tools:ignore="TouchTargetSizeCheck" />
+
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:backgroundTint="#74BCE3"
+            android:text="@string/searchText"
+            app:cornerRadius="15dp"
+            app:icon="@drawable/ic_search" />
     </LinearLayout>
 
     <LinearLayout
@@ -49,7 +62,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:fontFamily="@font/comfortaa_bold"
-            android:padding="3dp" />
+            android:padding="3dp"
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -84,8 +98,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:fontFamily="@font/comfortaa_bold"
-            android:text="Fri, 31 December"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -103,7 +116,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:fontFamily="@font/comfortaa"
-            android:textSize="50dp" />
+            android:textSize="50sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -121,7 +134,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:fontFamily="@font/comfortaa_bold"
-            android:text="Sunny"
             android:textSize="20dp" />
     </LinearLayout>
 
@@ -172,8 +184,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:fontFamily="@font/comfortaa_bold"
-                    android:padding="3dp"
-                    android:text="71%" />
+                    android:padding="3dp" />
             </LinearLayout>
 
             <!-- Right side spacer -->
@@ -212,8 +223,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:fontFamily="@font/comfortaa_bold"
-                    android:padding="3dp"
-                    android:text="800 m" />
+                    android:padding="3dp" />
 
             </LinearLayout>
 
@@ -269,8 +279,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:fontFamily="@font/comfortaa_bold"
-                    android:padding="3dp"
-                    android:text="13 Km/h" />
+                    android:padding="3dp" />
             </LinearLayout>
 
             <!-- Right side spacer -->
@@ -309,8 +318,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:fontFamily="@font/comfortaa_bold"
-                    android:padding="3dp"
-                    android:text="80 Pa" />
+                    android:padding="3dp" />
 
             </LinearLayout>
 
@@ -372,8 +380,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:fontFamily="@font/comfortaa_bold"
-                        android:gravity="center"
-                        android:text="5:03 AM" />
+                        android:gravity="center" />
                 </LinearLayout>
 
 
@@ -417,8 +424,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:fontFamily="@font/comfortaa_bold"
-                    android:gravity="center"
-                    android:text="5:35 PM" />
+                    android:gravity="center" />
 
             </LinearLayout>
 

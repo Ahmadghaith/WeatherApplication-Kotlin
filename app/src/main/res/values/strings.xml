@@ -5,5 +5,7 @@
     <string name="forecast">Forecast</string>
     <string name="maps">Maps</string>
     <string name="search">Search for a city...</string>
+    <string name="city_name_here">City name here</string>
+    <string name="searchText">Search</string>
 
 </resources>
