@@ -26,6 +26,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
+        android:layout_gravity="bottom"
         android:background="@drawable/rounded_navbar"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"

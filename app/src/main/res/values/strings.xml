@@ -4,8 +4,13 @@
     <string name="today">Today</string>
     <string name="forecast">Forecast</string>
     <string name="maps">Maps</string>
-    <string name="search">Search for a city...</string>
-    <string name="city_name_here">City name here</string>
+    <string name="city_name_here">Search for a city…</string>
     <string name="searchText">Search</string>
+    <string name="humidity">Humidity:</string>
+    <string name="visibility">Visibility:</string>
+    <string name="wind">Wind:</string>
+    <string name="sunset">Sunset:</string>
+    <string name="sunrise">Sunrise:</string>
+    <string name="pressure">Pressure:</string>
 
 </resources>

@@ -1,11 +1,14 @@
 package com.example.weatherapplication.fragments
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.core.content.ContextCompat
 import com.example.weatherapplication.API.WeatherApi
 import com.example.weatherapplication.R
 import com.example.weatherapplication.data.WeatherResult
@@ -43,19 +46,20 @@ class TodayFragment : Fragment() {
 
         fun getWeather(city : String){
             val date = view.findViewById<TextView>(R.id.date)
-            val temp = view.findViewById<TextView>(R.id.temperature)
+            val temperature = view.findViewById<TextView>(R.id.temperature)
             val location = view.findViewById<TextView>(R.id.location)
             val description = view.findViewById<TextView>(R.id.description)
             val imageView = view.findViewById<ImageView>(R.id.Icon)
+            val humidity = view.findViewById<TextView>(R.id.humidity)
+            val visibility = view.findViewById<TextView>(R.id.visibility)
+            val wind = view.findViewById<TextView>(R.id.wind)
+            val pressure = view.findViewById<TextView>(R.id.pressure)
             val sunrise = view.findViewById<TextView>(R.id.sunrise)
             val sunset = view.findViewById<TextView>(R.id.sunset)
 
 
 
-            //Unix to normal time
-            fun dateformater(){
 
-            }
 
             //Retrofit instance
             val retrofit = Retrofit.Builder()
@@ -75,9 +79,33 @@ class TodayFragment : Fragment() {
                         Picasso.get()
                             .load("https://openweathermap.org/img/w/${resp?.weather?.get(0)?.icon}.png")
                             .into(imageView)
-                        temp.text = "${resp?.main?.temp} °C"
+                        temperature.text = "${resp?.main?.temp}°C"
                         location.text = "${resp?.name}, ${resp?.sys?.country}"
                         description.text = "${resp?.weather?.get(0)?.description}"
+                        wind.text = "${resp?.wind?.speed}Km/h"
+                        humidity.text = "${resp?.main?.humidity}%"
+                        visibility.text = "${resp?.visibility?.div(1000)}Km"
+                        pressure.text = "${resp?.main?.pressure}hPa"
+
+                        //Unix to normal time
+
+                            val sdf = SimpleDateFormat("dd-MM-yyyy")
+                            val dt = Date("${resp?.dt}".toLong()* 1000)
+                            val newdate = sdf.format(dt)
+                        date.text = newdate
+
+                        val sdfn = SimpleDateFormat("HH:mm")
+                        val dtn = Date("${resp?.sys?.sunrise}".toLong()* 1000)
+                        val newdaten = sdfn.format(dtn)
+                        sunrise.text = "${newdaten} AM"
+
+                        val sdfr = SimpleDateFormat("HH:mm")
+                        val dtr = Date("${resp?.sys?.sunset}".toLong()* 1000)
+                        val newdater = sdfr.format(dtr)
+                        sunset.text = "${newdater} PM"
+
+
+
 
 
                     }
@@ -100,13 +128,17 @@ class TodayFragment : Fragment() {
             }
             else {
                 getWeather(city)
+                searchfield.isEnabled = false;
+
             }
+            searchfield.isEnabled = true;
+
         }
-
-
 
         return view
     }
+
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
