@@ -23,11 +23,6 @@ class TodayFragment : Fragment() {
 
     private val baseUrl = "https://api.openweathermap.org/data/2.5/weather/"
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -128,13 +123,5 @@ class TodayFragment : Fragment() {
             searchfield.isEnabled = true
         }
         return view
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
     }
 }
