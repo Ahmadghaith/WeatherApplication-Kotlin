@@ -1,60 +1,127 @@
 package com.example.weatherapplication.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
+import com.example.weatherapplication.API.WeatherApi
 import com.example.weatherapplication.R
+import com.example.weatherapplication.data.WeatherResult
+import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [TodayFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TodayFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private val baseUrl = "https://api.openweathermap.org/data/2.5/weather/"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_today, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_today, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TodayFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TodayFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        val date = view.findViewById<TextView>(R.id.date)
+        val temperature = view.findViewById<TextView>(R.id.temperature)
+        val feelsLike = view.findViewById<TextView>(R.id.feelsLike)
+        val location = view.findViewById<TextView>(R.id.location)
+        val description = view.findViewById<TextView>(R.id.description)
+        val imageView = view.findViewById<ImageView>(R.id.Icon)
+        val minimum = view.findViewById<TextView>(R.id.minimum)
+        val maximum = view.findViewById<TextView>(R.id.maximum)
+        val humidity = view.findViewById<TextView>(R.id.humidity)
+        val visibility = view.findViewById<TextView>(R.id.visibility)
+        val wind = view.findViewById<TextView>(R.id.wind)
+        val pressure = view.findViewById<TextView>(R.id.pressure)
+        val sunrise = view.findViewById<TextView>(R.id.sunrise)
+        val sunset = view.findViewById<TextView>(R.id.sunset)
+        val searchfield = view.findViewById<EditText>(R.id.editCity)
+        val btnsearch = view.findViewById<Button>(R.id.btnSearch)
+        val content = view.findViewById<RelativeLayout>(R.id.content)
+
+
+        fun getWeather(city : String){
+
+            //Retrofit instance
+            val retrofit = Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+            val weatherApi = retrofit.create(WeatherApi::class.java)
+
+            //OpenWeatherApi call
+            val result = weatherApi.getWeatherByCity(city)
+            result.enqueue(object : Callback<WeatherResult> {
+                @SuppressLint("SetTextI18n", "SimpleDateFormat")
+                override fun onResponse(call: Call<WeatherResult>, response: Response<WeatherResult>) {
+                    if (response.isSuccessful) {
+
+                        val resp = response.body()
+
+                        Picasso.get()
+                            .load("https://openweathermap.org/img/w/${resp?.weather?.get(0)?.icon}.png")
+                            .resize(250,250)
+                            .into(imageView)
+
+                        temperature.text = "${resp?.main?.temp}°C"
+                        feelsLike.text = "Feels like ${resp?.main?.feelsLike}°C"
+                        location.text = "${resp?.name}, ${resp?.sys?.country}"
+                        description.text = "${resp?.weather?.get(0)?.description}"
+                        minimum.text = "${resp?.main?.tempMin}°C"
+                        maximum.text = "${resp?.main?.tempMax}°C"
+                        wind.text = "${resp?.wind?.speed}Km/h"
+                        humidity.text = "${resp?.main?.humidity}%"
+                        visibility.text = "${resp?.visibility?.div(1000)}Km"
+                        pressure.text = "${resp?.main?.pressure}hPa"
+
+
+                        //Date to normal date
+                        val sdfDate = SimpleDateFormat("dd-MM-yyyy")
+                        val dt = Date("${resp?.dt}".toLong()* 1000)
+                        val newDate = sdfDate.format(dt)
+                        date.text = newDate
+
+                        //Sunrise to normal time
+                        val sdfSunrise = SimpleDateFormat("HH:mm")
+                        val dtn = Date("${resp?.sys?.sunrise}".toLong()* 1000)
+                        val newSunrise = sdfSunrise.format(dtn)
+                        sunrise.text = "$newSunrise AM"
+
+                        //Sunset to normal time
+                        val sdfSunset = SimpleDateFormat("HH:mm")
+                        val dtr = Date("${resp?.sys?.sunset}".toLong()* 1000)
+                        val newSunset = sdfSunset.format(dtr)
+                        sunset.text = "$newSunset PM"
+
+                        content.visibility =View.VISIBLE
+                    }
                 }
+                override fun onFailure(call: Call<WeatherResult>, t: Throwable) {
+                }
+            })
+
+        }
+
+        btnsearch.setOnClickListener{
+            val city = searchfield.text.toString()
+            if(city.isEmpty()) {
+                Toast.makeText(activity, "Search field can't be empty!", Toast.LENGTH_SHORT).show()
             }
+            else {
+                getWeather(city)
+                searchfield.isEnabled = false
+            }
+            searchfield.isEnabled = true
+        }
+        return view
     }
 }

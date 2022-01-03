@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -33,6 +34,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    buildFeatures{
+        dataBinding true
+    }
 }
 
 dependencies {
@@ -52,4 +57,17 @@ dependencies {
 
     //Http Requests (Retrofit)
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Firebase (RT DB)
+    implementation 'com.google.firebase:firebase-database-ktx:20.0.3'
+    implementation 'com.google.firebase:firebase-database:20.0.3'
+
+    //Firebase (Cloud Messaging)
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.0'
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
+
+
+
 }
