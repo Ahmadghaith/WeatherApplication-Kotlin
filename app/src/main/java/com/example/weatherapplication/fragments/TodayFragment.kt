@@ -21,7 +21,7 @@ import java.util.*
 
 class TodayFragment : Fragment() {
 
-    private val baseUrl = "https://api.openweathermap.org/data/2.5/weather/"
+    private val baseUrlToday = "https://api.openweathermap.org/data/2.5/weather/"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +53,7 @@ class TodayFragment : Fragment() {
 
             //Retrofit instance
             val retrofit = Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(baseUrlToday)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
             val weatherApi = retrofit.create(WeatherApi::class.java)
@@ -103,6 +103,10 @@ class TodayFragment : Fragment() {
                         sunset.text = "$newSunset PM"
 
                         content.visibility =View.VISIBLE
+
+                        val lat = "${resp?.coord?.lat}".toDouble()
+                        val lon = "${resp?.coord?.lon}".toDouble()
+                        //loadDailyForecast(lat, lon)
                     }
                 }
                 override fun onFailure(call: Call<WeatherResult>, t: Throwable) {
@@ -124,4 +128,32 @@ class TodayFragment : Fragment() {
         }
         return view
     }
+
+    /*private fun loadDailyForecast(lat: Double, lon: Double) {
+        val baseUrl7days = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=minutely,hourly,current&appid=41afd91e8508faf248e58bef14ffea2d&units=metric"
+
+        //Retrofit instance
+        val retrofit = Retrofit.Builder()
+            .baseUrl(baseUrl7days)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val weatherApi = retrofit.create(WeatherApi::class.java)
+
+        //OpenWeatherApi call
+        //val result = weatherApi.getWeatherByCity()
+        result.enqueue(object : Callback<JsonObject> {
+            @SuppressLint("SetTextI18n", "SimpleDateFormat")
+            override fun onResponse(call: Call<WeatherResult>, response: Response<WeatherResult>) {
+                if(response.isSuccessful) {
+
+                }
+            }
+            override fun onFailure(call: Call<WeatherResult>, t: Throwable) {
+
+            }
+
+
+
+
+    }*/
 }
