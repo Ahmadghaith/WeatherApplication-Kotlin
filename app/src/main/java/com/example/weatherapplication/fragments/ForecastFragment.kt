@@ -54,8 +54,6 @@ class ForecastFragment : Fragment() {
 
                         val resp = response.body()
 
-                        val lat = "${resp?.coord?.lat}".toDouble()
-                        val lon = "${resp?.coord?.lon}".toDouble()
                         val cityname = "${resp?.name}"
                         loadDailyForecast(cityname)
                     }

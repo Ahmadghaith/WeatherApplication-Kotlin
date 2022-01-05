@@ -14,5 +14,6 @@
     <string name="pressure">Pressure:</string>
     <string name="min_temperature">Min temp</string>
     <string name="max_temperature">Max temp</string>
+    <string name="_7_days_forecast">7 Days forecast</string>
 
 </resources>

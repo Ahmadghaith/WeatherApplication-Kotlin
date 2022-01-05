@@ -24,7 +24,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/comfortaa_bold"
             android:padding="3dp"
-            android:text="7 Days forecast"
+            android:text="@string/_7_days_forecast"
             android:textSize="30sp" />
 
     </LinearLayout>
