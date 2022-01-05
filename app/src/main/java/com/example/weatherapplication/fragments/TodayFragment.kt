@@ -25,13 +25,17 @@ class TodayFragment : Fragment() {
 
     private val baseUrlToday = "https://api.openweathermap.org/data/2.5/weather/"
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_today, container, false)
-
         val date = view.findViewById<TextView>(R.id.date)
         val temperature = view.findViewById<TextView>(R.id.temperature)
         val feelsLike = view.findViewById<TextView>(R.id.feelsLike)
@@ -136,6 +140,7 @@ class TodayFragment : Fragment() {
         }
         return view
     }
+
 
     fun loadDailyForecast(cityname: String) {
         val baseUrl7days = "https://api.openweathermap.org/data/2.5/forecast/daily/"

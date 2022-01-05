@@ -66,6 +66,10 @@ class ForecastFragment : Fragment() {
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
 
     fun loadDailyForecast(cityname: String) {
         val baseUrl7days = "https://api.openweathermap.org/data/2.5/forecast/daily/"
