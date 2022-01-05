@@ -11,6 +11,7 @@ import com.example.weatherapplication.API.DailyForecastApi
 import com.example.weatherapplication.API.WeatherApi
 import com.example.weatherapplication.R
 import com.example.weatherapplication.data.DailyForecast.DailyForecast
+import com.example.weatherapplication.data.CityName
 import com.example.weatherapplication.data.TodayData.WeatherResult
 import com.squareup.picasso.Picasso
 import retrofit2.Call
@@ -114,7 +115,9 @@ class TodayFragment : Fragment() {
                         val lat = "${resp?.coord?.lat}".toDouble()
                         val lon = "${resp?.coord?.lon}".toDouble()
                         val cityname = "${resp?.name}"
-                        loadDailyForecast(cityname)
+                        CityName.cityname = cityname
+                        loadDailyForecast()
+
 
 
 
@@ -134,6 +137,7 @@ class TodayFragment : Fragment() {
             else {
                 getWeather(city)
 
+
                 searchfield.isEnabled = false
             }
             searchfield.isEnabled = true
@@ -142,7 +146,8 @@ class TodayFragment : Fragment() {
     }
 
 
-    fun loadDailyForecast(cityname: String) {
+    fun loadDailyForecast() {
+        val cityname = CityName.cityname
         val baseUrl7days = "https://api.openweathermap.org/data/2.5/forecast/daily/"
 
         val textview = view?.findViewById<TextView>(R.id.textViewNew)
@@ -171,10 +176,6 @@ class TodayFragment : Fragment() {
             override fun onFailure(call: Call<DailyForecast>, t: Throwable) {
 
             }
-
-
-
-
         })
     }
 }

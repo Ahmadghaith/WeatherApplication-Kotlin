@@ -16,11 +16,15 @@
         <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/drawable/ic_launcher-WeatherApp_foreground.xml" value="0.5703125" />
         <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/drawable/ic_launcher_background.xml" value="0.5703125" />
         <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/drawable/rounded_bg.xml" value="0.5703125" />
+        <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/drawable/rounded_navbar.xml" value="0.5703125" />
         <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/drawable/rounded_searchbar.xml" value="0.5703125" />
         <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/layout/activity_main.xml" value="0.4492753623188406" />
+        <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/layout/blank_fragment.xml" value="0.5401041666666667" />
+        <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/layout/daily_item.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/layout/fragment_blank.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/layout/fragment_forecast.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/layout/fragment_today.xml" value="0.5" />
+        <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/menu/bottom_nav.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/mipmap-anydpi-v26/ic_launcher-WeatherApp.xml" value="0.5703125" />
         <entry key="..\:/Users/ahmad/OneDrive/Documents/WeatherApplication-Kotlin/app/src/main/res/mipmap-anydpi-v26/ic_launcher-WeatherApp_round.xml" value="0.5703125" />
       </map>
