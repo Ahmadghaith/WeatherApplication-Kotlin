@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.example.weatherapplication.API.DailyForecastApi
 import com.example.weatherapplication.API.WeatherApi
 import com.example.weatherapplication.R
-import com.example.weatherapplication.data.WeatherResult
+import com.example.weatherapplication.data.DailyForecast.DailyForecast
+import com.example.weatherapplication.data.TodayData.WeatherResult
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
@@ -104,9 +106,14 @@ class TodayFragment : Fragment() {
 
                         content.visibility =View.VISIBLE
 
+
                         val lat = "${resp?.coord?.lat}".toDouble()
                         val lon = "${resp?.coord?.lon}".toDouble()
-                        //loadDailyForecast(lat, lon)
+                        val cityname = "${resp?.name}"
+                        loadDailyForecast(cityname)
+
+
+
                     }
                 }
                 override fun onFailure(call: Call<WeatherResult>, t: Throwable) {
@@ -122,6 +129,7 @@ class TodayFragment : Fragment() {
             }
             else {
                 getWeather(city)
+
                 searchfield.isEnabled = false
             }
             searchfield.isEnabled = true
@@ -129,31 +137,39 @@ class TodayFragment : Fragment() {
         return view
     }
 
-    /*private fun loadDailyForecast(lat: Double, lon: Double) {
-        val baseUrl7days = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=minutely,hourly,current&appid=41afd91e8508faf248e58bef14ffea2d&units=metric"
+    fun loadDailyForecast(cityname: String) {
+        val baseUrl7days = "https://api.openweathermap.org/data/2.5/forecast/daily/"
+
+        val textview = view?.findViewById<TextView>(R.id.textViewNew)
 
         //Retrofit instance
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl7days)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val weatherApi = retrofit.create(WeatherApi::class.java)
+        val DailyForecastApi = retrofit.create(DailyForecastApi::class.java)
 
         //OpenWeatherApi call
-        //val result = weatherApi.getWeatherByCity()
-        result.enqueue(object : Callback<JsonObject> {
+        val result = DailyForecastApi.getDailyWeather(cityname)
+        result.enqueue(object : Callback<DailyForecast> {
             @SuppressLint("SetTextI18n", "SimpleDateFormat")
-            override fun onResponse(call: Call<WeatherResult>, response: Response<WeatherResult>) {
-                if(response.isSuccessful) {
+            override fun onResponse(call: Call<DailyForecast>, response: Response<DailyForecast>)
+            {
+                if(response.isSuccessful)
+                {
+                    val respn = response.body()
+                    textview?.text= "${respn?.city?.coord?.lat}, ${respn?.city?.coord?.lon}"
 
                 }
             }
-            override fun onFailure(call: Call<WeatherResult>, t: Throwable) {
+
+            override fun onFailure(call: Call<DailyForecast>, t: Throwable) {
 
             }
 
 
 
 
-    }*/
+        })
+    }
 }

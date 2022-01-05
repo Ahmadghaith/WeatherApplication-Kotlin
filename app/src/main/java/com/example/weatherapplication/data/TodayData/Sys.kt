@@ -1,4 +1,4 @@
-package com.example.weatherapplication.data
+package com.example.weatherapplication.data.TodayData
 
 
 import com.google.gson.annotations.SerializedName
