@@ -3,7 +3,7 @@ package com.example.weatherapplication.data.HourlyForecast
 
 import com.google.gson.annotations.SerializedName
 
-data class Hours(
+data class (
     val clouds: Clouds,
     val dt: Int,
     @SerializedName("dt_txt")
