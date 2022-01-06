@@ -8,11 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapplication.R
+import com.squareup.picasso.Picasso
 
 class DailyAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     private var itemList: MutableList<DailyItems> = mutableListOf()
+
 
     override fun onCreateViewHolder(parent:ViewGroup, viewType: Int): RecyclerView.ViewHolder
     {
@@ -25,7 +27,7 @@ class DailyAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         {
             is ViewHolder ->
             {
-                holder.bind(itemList[position])
+                holder.bind(itemList.asReversed()[position])
             }
         }
     }
@@ -41,7 +43,6 @@ class DailyAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyItemInserted(0)
     }
 
-
     class ViewHolder constructor(itemView:View) : RecyclerView.ViewHolder(itemView)
     {
         private val date = itemView.findViewById<TextView>(R.id.txtDate)
@@ -49,14 +50,23 @@ class DailyAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val highTemp = itemView.findViewById<TextView>(R.id.txtHighTemperature)
         private val lowTemp = itemView.findViewById<TextView>(R.id.txtLowTemperature)
 
+        fun getIcon(){
+            Picasso.get()
+                .load("https://openweathermap.org/img/w/${image}.png")
+                .resize(250,250)
+        }
+
         @SuppressLint("SetTextI18n")
         fun bind(dailyitem: DailyItems)
         {
-            date.text = dailyitem.date.toString()
-            image.setImageDrawable()
+            date.text = dailyitem.date
+            //image.setI(R.id.imgIcon).toString() = dailyitem.image
             highTemp.text = dailyitem.highestTemp
             lowTemp.text = dailyitem.lowestTemp
         }
+
+
     }
+
 
 }

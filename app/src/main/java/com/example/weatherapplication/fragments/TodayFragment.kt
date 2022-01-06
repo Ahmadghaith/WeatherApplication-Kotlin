@@ -92,7 +92,7 @@ class TodayFragment : Fragment() {
 
 
                         //Date to normal date
-                        val sdfDate = SimpleDateFormat("dd-MM-yyyy")
+                        val sdfDate = SimpleDateFormat("EEE dd, MMMM yyyy")
                         val dt = Date("${resp?.dt}".toLong()* 1000)
                         val newDate = sdfDate.format(dt)
                         date.text = newDate

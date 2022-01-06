@@ -17,11 +17,15 @@ import com.example.weatherapplication.R
 import com.example.weatherapplication.data.DailyForecast.DailyForecast
 import com.example.weatherapplication.data.DailyForecast.Days
 import com.example.weatherapplication.data.CityName
+import com.example.weatherapplication.data.DailyForecast.Weather
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ForecastFragment : Fragment() {
     private lateinit var itemRecycleView: DailyAdapter
@@ -75,12 +79,24 @@ class ForecastFragment : Fragment() {
             {
                 if(response.isSuccessful)
                 {
-                    val respn = response.body()
-                    //Log.d("Ahmad: ", "${respn?.city?.coord?.lat}, ${respn?.city?.coord?.lon}")
-                    for (i : Days in respn?.list!!)
+                    val resp = response.body()
+                    for (i : Days in resp?.list!!)
                     {
-                        itemRecycleView.add(DailyItems(i.dt, "", i.temp.min.toString(), i.temp.max.toString()))
+                        val sdfDate = SimpleDateFormat("EEE dd, MMMM yyyy")
+                        val dt = Date(i.dt* 1000)
+                        val newDate = sdfDate.format(dt)
+
+                        for(j : Weather in i.weather){
+                            fun getIcon(){
+                                Picasso.get()
+                                    .load("https://openweathermap.org/img/w/${j.icon}.png")
+                                    .resize(250,250)
+                            }
+                            itemRecycleView.add(DailyItems(newDate, "${getIcon()}", "↑ ${i.temp.min}°C ", "↓ ${i.temp.max}°C"))
+                        }
+
                     }
+
 
 
                 }
