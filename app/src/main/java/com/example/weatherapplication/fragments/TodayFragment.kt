@@ -1,6 +1,7 @@
 package com.example.weatherapplication.fragments
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -27,6 +28,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class TodayFragment : Fragment() {
+
+    //Firebase RT DB
     private lateinit var itemRef: DatabaseReference
 
     private val baseUrlToday = "https://api.openweathermap.org/data/2.5/weather/"
@@ -43,6 +46,7 @@ class TodayFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_today, container, false)
 
+        //Saving Cityname to DB
         val database = Firebase.database
         itemRef = database.getReference("CityInfo")
 
@@ -145,7 +149,17 @@ class TodayFragment : Fragment() {
         btnsearch.setOnClickListener{
             val city = searchfield.text.toString()
             if(city.isEmpty()) {
-                Toast.makeText(activity, "Search field can't be empty!", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "Search field can't be empty!", Toast.LENGTH_SHORT).show()
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("Message")
+                builder.setMessage("Search field can't be empty!")
+                builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                    Toast.makeText(activity?.applicationContext,
+                        android.R.string.yes, Toast.LENGTH_SHORT).show()
+                }
+
+                builder.show()
+
             }
             else {
                 getWeather(city)
@@ -161,7 +175,9 @@ class TodayFragment : Fragment() {
 
     fun loadHourlyForecast() {
         val cityname = CityInfo.cityname
-        val baseUrlHourly = "https://pro.openweathermap.org/data/2.5/forecast/hourly"
+        //https://pro.openweathermap.org/data/2.5/forecast/hourly?q=beirut&appid=41afd91e8508faf248e58bef14ffea2d
+        //https://api.openweathermap.org/data/2.5/forecast?q=beirut&appid=41afd91e8508faf248e58bef14ffea2d&cnt=16
+        val baseUrlHourly = "https://pro.openweathermap.org/data/2.5/forecast/hourly/"
 
         val textview = view?.findViewById<TextView>(R.id.textViewNew)
 

@@ -39,7 +39,9 @@ class GoogleMapsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_google_maps, container, false)
+        val view = inflater.inflate(R.layout.fragment_google_maps, container, false)
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,4 +49,6 @@ class GoogleMapsFragment : Fragment() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.GoogleMapsFragment) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }
+
+
 }

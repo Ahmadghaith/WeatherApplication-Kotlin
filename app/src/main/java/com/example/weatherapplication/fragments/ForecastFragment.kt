@@ -90,7 +90,7 @@ class ForecastFragment : Fragment() {
                                     .resize(250,250)
                                     .into(object : com.squareup.picasso.Target {
                                         override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                                            itemRecycleView.add(DailyItems(newDate, bitmap!!, "↑ ${i.temp.min}°C ", "↓ ${i.temp.max}°C"))
+                                            itemRecycleView.add(DailyItems(newDate, bitmap!!, "↑ ${i.temp.max}°C ", "↓ ${i.temp.min}°C"))
                                         }
 
                                         override fun onPrepareLoad(placeHolderDrawable: Drawable?) {}
