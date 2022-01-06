@@ -2,17 +2,21 @@ package com.example.weatherapplication.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.example.weatherapplication.API.DailyForecastApi
+import com.example.weatherapplication.API.HourlyForecastApi
 import com.example.weatherapplication.API.WeatherApi
 import com.example.weatherapplication.R
-import com.example.weatherapplication.data.DailyForecast.DailyForecast
-import com.example.weatherapplication.data.CityName
-import com.example.weatherapplication.data.TodayData.WeatherResult
+import com.example.weatherapplication.data.CityInfo
+import com.example.weatherapplication.data.HourlyForecast.HourlyForecast
+import com.example.weatherapplication.data.TodayForecast.WeatherResult
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,6 +27,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class TodayFragment : Fragment() {
+    private lateinit var itemRef: DatabaseReference
 
     private val baseUrlToday = "https://api.openweathermap.org/data/2.5/weather/"
 
@@ -37,6 +42,10 @@ class TodayFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_today, container, false)
+
+        val database = Firebase.database
+        itemRef = database.getReference("CityInfo")
+
         val date = view.findViewById<TextView>(R.id.date)
         val temperature = view.findViewById<TextView>(R.id.temperature)
         val feelsLike = view.findViewById<TextView>(R.id.feelsLike)
@@ -54,6 +63,8 @@ class TodayFragment : Fragment() {
         val searchfield = view.findViewById<EditText>(R.id.editCity)
         val btnsearch = view.findViewById<Button>(R.id.btnSearch)
         val content = view.findViewById<RelativeLayout>(R.id.content)
+
+
 
 
         fun getWeather(city : String){
@@ -112,12 +123,14 @@ class TodayFragment : Fragment() {
                         content.visibility =View.VISIBLE
 
 
-                        val lat = "${resp?.coord?.lat}".toDouble()
-                        val lon = "${resp?.coord?.lon}".toDouble()
                         val cityname = "${resp?.name}"
-                        CityName.cityname = cityname
-                        loadDailyForecast()
-
+                        val lat = resp?.coord?.lat
+                        val lon = resp?.coord?.lon
+                        CityInfo.cityname = cityname
+                        CityInfo.lat = lat!!
+                        CityInfo.lon = lon!!
+                        loadHourlyForecast()
+                        itemRef.setValue(cityname)
 
 
 
@@ -146,34 +159,41 @@ class TodayFragment : Fragment() {
     }
 
 
-    fun loadDailyForecast() {
-        val cityname = CityName.cityname
-        val baseUrl7days = "https://api.openweathermap.org/data/2.5/forecast/daily/"
+    fun loadHourlyForecast() {
+        val cityname = CityInfo.cityname
+        val baseUrlHourly = "https://pro.openweathermap.org/data/2.5/forecast/hourly"
 
         val textview = view?.findViewById<TextView>(R.id.textViewNew)
 
         //Retrofit instance
         val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl7days)
+            .baseUrl(baseUrlHourly)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val DailyForecastApi = retrofit.create(DailyForecastApi::class.java)
+        val HourlyForecastApi = retrofit.create(HourlyForecastApi::class.java)
 
         //OpenWeatherApi call
-        val result = DailyForecastApi.getDailyWeather(cityname)
-        result.enqueue(object : Callback<DailyForecast> {
+        val result = HourlyForecastApi.getHourlyWeather(cityname)
+        //Log.d("OK", result.h)
+        result.enqueue(object : Callback<HourlyForecast> {
             @SuppressLint("SetTextI18n", "SimpleDateFormat")
-            override fun onResponse(call: Call<DailyForecast>, response: Response<DailyForecast>)
+            override fun onResponse(call: Call<HourlyForecast>, response: Response<HourlyForecast>)
             {
                 if(response.isSuccessful)
                 {
                     val respn = response.body()
-                    textview?.text= "${respn?.city?.coord?.lat}, ${respn?.city?.coord?.lon}"
+                    textview?.text = "${respn?.city?.coord?.lat}, ${respn?.city?.coord?.lon}"
 
+                }
+                else {
+                    Log.d("Ahmad Failed",response.code().toString())
+                    Log.d("Ahmad Failed",response.message())
+                    Log.d("Ahmad Failed",response.headers().toString())
+                    Log.d("Ahmad Failed",response.raw().toString())
                 }
             }
 
-            override fun onFailure(call: Call<DailyForecast>, t: Throwable) {
+            override fun onFailure(call: Call<HourlyForecast>, t: Throwable) {
 
             }
         })

@@ -1,5 +1,7 @@
 package com.example.weatherapplication.data
 
-object CityName {
+object CityInfo {
     var cityname: String = ""
+    var lat: Double = .0
+    var lon: Double = .0
 }

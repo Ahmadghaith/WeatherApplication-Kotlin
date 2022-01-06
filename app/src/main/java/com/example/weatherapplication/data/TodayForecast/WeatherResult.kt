@@ -1,4 +1,4 @@
-package com.example.weatherapplication.data.TodayData
+package com.example.weatherapplication.data.TodayForecast
 
 
 data class WeatherResult(

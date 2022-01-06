@@ -50,17 +50,12 @@ class DailyAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val highTemp = itemView.findViewById<TextView>(R.id.txtHighTemperature)
         private val lowTemp = itemView.findViewById<TextView>(R.id.txtLowTemperature)
 
-        fun getIcon(){
-            Picasso.get()
-                .load("https://openweathermap.org/img/w/${image}.png")
-                .resize(250,250)
-        }
 
         @SuppressLint("SetTextI18n")
         fun bind(dailyitem: DailyItems)
         {
             date.text = dailyitem.date
-            //image.setI(R.id.imgIcon).toString() = dailyitem.image
+            image.setImageBitmap(dailyitem.image)
             highTemp.text = dailyitem.highestTemp
             lowTemp.text = dailyitem.lowestTemp
         }

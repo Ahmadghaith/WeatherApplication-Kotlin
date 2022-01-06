@@ -1,7 +1,5 @@
-package com.example.weatherapplication.data.TodayData
+package com.example.weatherapplication.data.TodayForecast
 
-
-import com.google.gson.annotations.SerializedName
 
 data class Sys(
     val country: String,

@@ -1,13 +1,13 @@
 package com.example.weatherapplication.fragments
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapplication.API.DailyForecastApi
@@ -16,7 +16,7 @@ import com.example.weatherapplication.Adapter.DailyItems
 import com.example.weatherapplication.R
 import com.example.weatherapplication.data.DailyForecast.DailyForecast
 import com.example.weatherapplication.data.DailyForecast.Days
-import com.example.weatherapplication.data.CityName
+import com.example.weatherapplication.data.CityInfo
 import com.example.weatherapplication.data.DailyForecast.Weather
 import com.squareup.picasso.Picasso
 import retrofit2.Call
@@ -59,10 +59,8 @@ class ForecastFragment : Fragment() {
 
 
     fun loadDailyForecast() {
-        val cityname = CityName.cityname
+        val cityname = CityInfo.cityname
         val baseUrl7days = "https://api.openweathermap.org/data/2.5/forecast/daily/"
-
-        val textview = view?.findViewById<TextView>(R.id.textInfo)
 
         //Retrofit instance
         val retrofit = Retrofit.Builder()
@@ -82,17 +80,25 @@ class ForecastFragment : Fragment() {
                     val resp = response.body()
                     for (i : Days in resp?.list!!)
                     {
-                        val sdfDate = SimpleDateFormat("EEE dd, MMMM yyyy")
+                        val sdfDate = SimpleDateFormat("EEE dd, MMMM")
                         val dt = Date(i.dt* 1000)
                         val newDate = sdfDate.format(dt)
 
                         for(j : Weather in i.weather){
-                            fun getIcon(){
                                 Picasso.get()
                                     .load("https://openweathermap.org/img/w/${j.icon}.png")
                                     .resize(250,250)
-                            }
-                            itemRecycleView.add(DailyItems(newDate, "${getIcon()}", "↑ ${i.temp.min}°C ", "↓ ${i.temp.max}°C"))
+                                    .into(object : com.squareup.picasso.Target {
+                                        override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                                            itemRecycleView.add(DailyItems(newDate, bitmap!!, "↑ ${i.temp.min}°C ", "↓ ${i.temp.max}°C"))
+                                        }
+
+                                        override fun onPrepareLoad(placeHolderDrawable: Drawable?) {}
+
+                                        override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {}
+                                })
+
+
                         }
 
                     }

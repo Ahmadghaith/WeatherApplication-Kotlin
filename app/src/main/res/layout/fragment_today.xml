@@ -493,8 +493,27 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/rl10"
+                    android:layout_below="@+id/rl9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/hourly_item" />
+
+
+                </LinearLayout>
+
 
             </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/textViewNew"

@@ -27,10 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:fontFamily="sans-serif-light"
         android:gravity="center"
-        android:textColor="@color/white"
-        app:srcCompat="@drawable/weathericon" />
+        app:srcCompat="@drawable/location" />
 
     <TextView
         android:id="@+id/txtHighTemperature"
@@ -42,7 +40,7 @@
         android:layout_gravity="center"
         android:textColor="@color/black"
         android:textSize="14sp"
-        tools:text="31°C /" />
+        tools:text="31°C" />
 
     <TextView
         android:id="@+id/txtLowTemperature"
