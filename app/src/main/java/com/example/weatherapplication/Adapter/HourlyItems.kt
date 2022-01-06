@@ -1,4 +1,5 @@
 package com.example.weatherapplication.Adapter
 
-class HourlyItems {
-}
+import android.graphics.Bitmap
+
+data class HourlyItems(var hour: String, var image: Bitmap, var temp: String)

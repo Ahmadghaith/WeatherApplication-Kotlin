@@ -116,7 +116,7 @@ class ForecastFragment : Fragment() {
 
     private fun initRecycleView(view:View)
     {
-        val recycleView = view.findViewById<RecyclerView>(R.id.recyclerview)
+        val recycleView = view.findViewById<RecyclerView>(R.id.recyclerviewDays)
         recycleView.layoutManager = LinearLayoutManager(this@ForecastFragment.context)
         itemRecycleView = DailyAdapter()
         recycleView.adapter = itemRecycleView

@@ -37,7 +37,7 @@ class NotificationFirebase: FirebaseMessagingService() {
                 notify(3, builder.build())
             }
 
-            if (remoteMessage.notification!!.title =="Weather notification")
+            if (remoteMessage.notification!!.title =="WeatherH notification")
             {
                 Log.d("Notification", "This a notification from Firebase")
             }

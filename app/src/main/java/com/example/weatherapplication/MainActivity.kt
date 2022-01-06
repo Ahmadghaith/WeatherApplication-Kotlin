@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity()/*,EasyPermissions.PermissionCallbacks, 
     {
         if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.O) {
             val name = "Ahmad Ghaith"
-            val descriptionText = "Weather notification"
+            val descriptionText = "WeatherH notification"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(NotificationFirebase.CHANNEL_ID, name, importance).apply {
                 description = descriptionText

@@ -1,6 +1,6 @@
 package com.example.weatherapplication.API
 
-import com.example.weatherapplication.data.HourlyForecast.HourlyForecast
+import com.example.weatherapplication.data.HourlyForecast.HourlyResult
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -12,6 +12,6 @@ interface HourlyForecastApi {
     }
 
 
-    @GET("?appid=${API_KEY}&units=metric&cnt=24")
-    fun getHourlyWeather(@Query("q") cityname: String): Call<HourlyForecast>
+    @GET("?appid=${API_KEY}&units=metric&cnt=16")
+    fun getHourlyWeather(@Query("q") cityname: String): Call<HourlyResult>
 }

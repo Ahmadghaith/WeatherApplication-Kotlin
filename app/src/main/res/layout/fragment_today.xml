@@ -187,7 +187,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -224,7 +224,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -233,7 +233,6 @@
                             android:id="@+id/hum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:contentDescription="TODO"
                             android:src="@drawable/humidity" />
 
                         <Space
@@ -262,7 +261,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -307,7 +306,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -344,7 +343,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -381,7 +380,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -425,7 +424,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -462,7 +461,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -501,7 +500,7 @@
                     android:orientation="horizontal">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerview"
+                        android:id="@+id/recyclerviewHours"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -515,11 +514,6 @@
             </RelativeLayout>
 
 
-            <TextView
-                android:id="@+id/textViewNew"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView" />
 
 
         </RelativeLayout>
