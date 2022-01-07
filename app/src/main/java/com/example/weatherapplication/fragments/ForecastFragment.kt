@@ -31,6 +31,7 @@ class ForecastFragment : Fragment() {
 
     private lateinit var itemRecycleView: DailyAdapter
 
+    // Full url: https://api.openweathermap.org/data/2.5/forecast/daily?q=beirut&appid=41afd91e8508faf248e58bef14ffea2d
     private val baseUrl7Days = "https://api.openweathermap.org/data/2.5/forecast/daily/"
 
     override fun onCreateView(
@@ -48,6 +49,8 @@ class ForecastFragment : Fragment() {
 
 
     private fun loadDailyForecast() {
+
+        //Getting the city name from the object CityInfo
         val cityName = CityInfo.cityname
 
         //Retrofit instance
@@ -74,6 +77,7 @@ class ForecastFragment : Fragment() {
                         val dt = Date(i.dt* 1000)
                         val newDate = sdfDate.format(dt)
 
+                        //Another loop to get each icon
                         for(j : Weather in i.weather){
                                 Picasso.get()
                                     .load("https://openweathermap.org/img/w/${j.icon}.png")
@@ -94,6 +98,7 @@ class ForecastFragment : Fragment() {
         })
     }
 
+    //Initializing 7 days forecast Recyclerview
     private fun initRecycleView(view:View)
     {
         val recycleView = view.findViewById<RecyclerView>(R.id.recyclerviewDays)

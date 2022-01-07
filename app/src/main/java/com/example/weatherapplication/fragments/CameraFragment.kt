@@ -30,17 +30,17 @@ class CameraFragment : Fragment() {
         val capture = view.findViewById<Button>(R.id.capture)
         val upload = view.findViewById<Button>(R.id.upload)
 
+        // Capture button
         capture.setOnClickListener {
             if (checkSelfPermission(requireContext(),Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED)
             {
                 val permissions = arrayOf(Manifest.permission.CAMERA)
                 requestPermissions(permissions, PERMISSION_CODE_CAMERA)
             }
-            else
-            {
-                takePhoto()
-            }
+            else { takePhoto() }
         }
+
+        //Upload button
         upload.setOnClickListener {
 
             if (checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_DENIED)
@@ -48,10 +48,7 @@ class CameraFragment : Fragment() {
                 val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
                 requestPermissions(permissions, PERMISSION_CODE_UPLOAD)
             }
-            else
-            {
-                uploadImageGallery()
-            }
+            else { uploadImageGallery() }
         }
         return view
     }

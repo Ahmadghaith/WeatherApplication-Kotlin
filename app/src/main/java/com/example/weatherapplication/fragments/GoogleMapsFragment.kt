@@ -30,16 +30,15 @@ class GoogleMapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
+
+        //Each time the city changes, it will be shown on the map
         val Coord = LatLng(CityInfo.lat, CityInfo.lon)
         googleMap.addMarker(MarkerOptions()
             .position(Coord)
             .title("Marker in ${CityInfo.cityname}")
             .snippet("Lat: ${CityInfo.lat}    Lon: ${CityInfo.lon}")
             .draggable(true)
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.location))
-
-
-        )
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.location)))
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(Coord))
     }
 
@@ -48,9 +47,8 @@ class GoogleMapsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_google_maps, container, false)
+        return inflater.inflate(R.layout.fragment_google_maps, container, false)
 
-        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

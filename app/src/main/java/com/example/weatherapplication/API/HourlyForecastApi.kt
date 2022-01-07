@@ -11,7 +11,6 @@ interface HourlyForecastApi {
         const val API_KEY = "41afd91e8508faf248e58bef14ffea2d"
     }
 
-
     @GET("?appid=${API_KEY}&units=metric&cnt=16")
     fun getHourlyWeather(@Query("q") cityname: String): Call<HourlyResult>
 }

@@ -1,18 +1,11 @@
 package com.example.weatherapplication
 
 import android.app.AlertDialog
-import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.example.weatherapplication.fragments.ForecastFragment
-import com.example.weatherapplication.fragments.GoogleMapsFragment
-import com.example.weatherapplication.fragments.TodayFragment
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-
 class NotificationFirebase: FirebaseMessagingService() {
 
 
@@ -23,7 +16,7 @@ class NotificationFirebase: FirebaseMessagingService() {
 
         override fun onNewToken(token:String)
         {
-            super.onNewToken(token);
+            super.onNewToken(token)
         }
 
         override fun onMessageReceived(remoteMessage: RemoteMessage)
@@ -48,7 +41,7 @@ class NotificationFirebase: FirebaseMessagingService() {
                 builder.setTitle("Notification")
                 builder.setMessage("Notification is working! 🔥")
 
-                builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                builder.setPositiveButton(android.R.string.yes) { _, _ ->
                     Toast.makeText(applicationContext,
                         android.R.string.yes, Toast.LENGTH_SHORT).show()
                 }

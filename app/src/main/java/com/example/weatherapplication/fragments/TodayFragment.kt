@@ -39,11 +39,13 @@ class TodayFragment : Fragment() {
     //Firebase RT DB
     private lateinit var itemRef: DatabaseReference
 
+    // Full url: https://api.openweathermap.org/data/2.5/weather?q=beirut&appid=41afd91e8508faf248e58bef14ffea2d
     private val baseUrlToday = "https://api.openweathermap.org/data/2.5/weather/"
+
+    // Full url: https://api.openweathermap.org/data/2.5/forecast?q=beirut&appid=41afd91e8508faf248e58bef14ffea2d
     private val baseUrlHourly = "https://api.openweathermap.org/data/2.5/forecast/"
 
     private lateinit var itemRecycleView: HourlyAdapter
-
 
 
     override fun onCreateView(
@@ -54,7 +56,7 @@ class TodayFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_today, container, false)
 
 
-        initRecycleViewH(view)
+        initRecycleView(view)
 
         //Saving City names to DB
         val database = Firebase.database
@@ -136,7 +138,7 @@ class TodayFragment : Fragment() {
 
                         content.visibility =View.VISIBLE
 
-
+                        //Saving the data into the Object CityInfo
                         val cityname = "${resp?.name}"
                         val lat = resp?.coord?.lat
                         val lon = resp?.coord?.lon
@@ -154,9 +156,9 @@ class TodayFragment : Fragment() {
                 override fun onFailure(call: Call<WeatherResult>, t: Throwable) {
                 }
             })
-
         }
 
+        //To stay on screen when coming back to the fragment
         getWeather(CityInfo.cityname)
 
         btnsearch.setOnClickListener{
@@ -172,11 +174,10 @@ class TodayFragment : Fragment() {
                     Toast.makeText(activity?.applicationContext,
                         android.R.string.yes, Toast.LENGTH_SHORT).show()
                 }
-
                 builder.show()
-
             }
             else {
+                //Show me the result
                 getWeather(city)
                 searchfield.isEnabled = false
             }
@@ -188,6 +189,7 @@ class TodayFragment : Fragment() {
 
     fun loadHourlyForecast() {
 
+        //Loading the city name from the CityInfo Object
         val cityname = CityInfo.cityname
 
 
@@ -196,11 +198,11 @@ class TodayFragment : Fragment() {
             .baseUrl(baseUrlHourly)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val HourlyForecastApi = retrofit.create(HourlyForecastApi::class.java)
+        val hourlyForecastApi = retrofit.create(HourlyForecastApi::class.java)
 
 
         //OpenWeatherApi call
-        val result = HourlyForecastApi.getHourlyWeather(cityname)
+        val result = hourlyForecastApi.getHourlyWeather(cityname)
         result.enqueue(object : Callback<HourlyResult> {
             @SuppressLint("SetTextI18n", "SimpleDateFormat")
             override fun onResponse(call: Call<HourlyResult>, response: Response<HourlyResult>)
@@ -211,10 +213,12 @@ class TodayFragment : Fragment() {
 
                     for (i : Hours in resp?.list!!)
                     {
+                        //Converting date
                         val sdfDate = SimpleDateFormat("HH:mm a")
                         val dt = Date(i.dt* 1000)
                         val newDate = sdfDate.format(dt)
 
+                        //Another loop to get each icon
                         for(j : WeatherH in i.weather){
                             Picasso.get()
                                 .load("https://openweathermap.org/img/w/${j.icon}.png")
@@ -223,9 +227,7 @@ class TodayFragment : Fragment() {
                                     override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
                                         itemRecycleView.add(HourlyItems(newDate, bitmap!!, "${i.main.temp}°C"))
                                     }
-
                                     override fun onPrepareLoad(placeHolderDrawable: Drawable?) {}
-
                                     override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {}
                                 })
                         }
@@ -237,7 +239,8 @@ class TodayFragment : Fragment() {
         })
     }
 
-    private fun initRecycleViewH(view:View)
+    //Initializing Hourly forecast Recyclerview
+    private fun initRecycleView(view:View)
     {
         val recycleView = view.findViewById<RecyclerView>(R.id.recyclerviewHours)
         recycleView.layoutManager = LinearLayoutManager(this@TodayFragment.context, LinearLayoutManager.HORIZONTAL, false)
