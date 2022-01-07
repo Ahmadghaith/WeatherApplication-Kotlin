@@ -14,4 +14,10 @@
         android:icon="@drawable/maps"
         android:title="@string/maps" />
 
+    <item
+        android:id="@+id/cameraFragment"
+        android:icon="@drawable/camera"
+        android:title="@string/camera" />
+
+
 </menu>

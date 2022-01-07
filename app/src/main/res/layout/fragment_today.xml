@@ -53,6 +53,8 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="#74BCE3"
                     android:text="@string/searchText"
+                    android:textAllCaps="false"
+                    android:textSize="15sp"
                     app:cornerRadius="15dp"
                     app:icon="@drawable/ic_search" />
             </LinearLayout>

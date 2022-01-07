@@ -30,8 +30,7 @@ class MainActivity : AppCompatActivity()/*,EasyPermissions.PermissionCallbacks, 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Internet()
-        //Location()
+        Location()
 
         createChannel()
 
@@ -60,22 +59,11 @@ class MainActivity : AppCompatActivity()/*,EasyPermissions.PermissionCallbacks, 
 
     }
 
-    /*private fun Internet(){
-        if(EasyPermissions.hasPermissions(this, internet))
-        {
-            Toast.makeText(this,  "You have already Permission",Toast.LENGTH_SHORT).show()
-        }
-        else{
-            EasyPermissions.requestPermissions(this, "Permission for Internet", REQUESTCODEINTERNET, internet)
-        }
-    }
 
+    //Location request on runtime
     private fun Location(){
-        if(EasyPermissions.hasPermissions(this, location))
+        if(!EasyPermissions.hasPermissions(this, location))
         {
-            Toast.makeText(this,  "You have already Permission",Toast.LENGTH_SHORT).show()
-        }
-        else{
             EasyPermissions.requestPermissions(this, "Permission for Internet", REQUESTCODELOCATION, location)
         }
     }
@@ -90,23 +78,6 @@ class MainActivity : AppCompatActivity()/*,EasyPermissions.PermissionCallbacks, 
     }
 
 
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
-        Toast.makeText(this, "Accepted", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        if (EasyPermissions.somePermissionPermanentlyDenied (this, perms)) {
-            AppSettingsDialog.Builder(this).build().show()
-        }
-    }
-
-    override fun onRationaleAccepted(requestCode: Int) {
-        Toast.makeText(this, "done", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onRationaleDenied(requestCode: Int) {
-        Toast.makeText(this, "done", Toast.LENGTH_SHORT).show()
-    }*/
 
 
 }

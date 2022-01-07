@@ -15,5 +15,10 @@
     <string name="min_temperature">Min temp</string>
     <string name="max_temperature">Max temp</string>
     <string name="_7_days_forecast">7 Days forecast</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="camera">Camera</string>
+    <string name="capture">Capture</string>
+    <string name="upload">Upload</string>
 
 </resources>
