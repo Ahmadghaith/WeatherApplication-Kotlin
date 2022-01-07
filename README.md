@@ -9,8 +9,6 @@ I hope you like this project and found it useful! 🙏
 
 ### Libraries and tools 🛠
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
 * [Kotlin](https://kotlinlang.org/)
 * [Retrofit](https://square.github.io/retrofit/)
 * [Picasso](https://square.github.io/picasso/)
