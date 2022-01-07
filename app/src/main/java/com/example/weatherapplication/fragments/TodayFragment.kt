@@ -18,7 +18,6 @@ import com.example.weatherapplication.Adapter.HourlyAdapter
 import com.example.weatherapplication.Adapter.HourlyItems
 import com.example.weatherapplication.R
 import com.example.weatherapplication.data.CityInfo
-import com.example.weatherapplication.data.DailyForecast.Weather
 import com.example.weatherapplication.data.HourlyForecast.HourlyResult
 import com.example.weatherapplication.data.HourlyForecast.Hours
 import com.example.weatherapplication.data.HourlyForecast.WeatherH
@@ -41,13 +40,11 @@ class TodayFragment : Fragment() {
     private lateinit var itemRef: DatabaseReference
 
     private val baseUrlToday = "https://api.openweathermap.org/data/2.5/weather/"
+    private val baseUrlHourly = "https://api.openweathermap.org/data/2.5/forecast/"
 
     private lateinit var itemRecycleView: HourlyAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,9 +56,9 @@ class TodayFragment : Fragment() {
 
         initRecycleViewH(view)
 
-        //Saving Cityname to DB
+        //Saving City names to DB
         val database = Firebase.database
-        itemRef = database.getReference("CityInfo")
+        itemRef = database.getReference("City name")
 
         val date = view.findViewById<TextView>(R.id.date)
         val temperature = view.findViewById<TextView>(R.id.temperature)
@@ -126,16 +123,16 @@ class TodayFragment : Fragment() {
                         date.text = newDate
 
                         //Sunrise to normal time
-                        val sdfSunrise = SimpleDateFormat("HH:mm")
+                        val sdfSunrise = SimpleDateFormat("HH:mm a")
                         val dtn = Date("${resp?.sys?.sunrise}".toLong()* 1000)
                         val newSunrise = sdfSunrise.format(dtn)
-                        sunrise.text = "$newSunrise AM"
+                        sunrise.text = newSunrise
 
                         //Sunset to normal time
-                        val sdfSunset = SimpleDateFormat("HH:mm")
+                        val sdfSunset = SimpleDateFormat("HH:mm a")
                         val dtr = Date("${resp?.sys?.sunset}".toLong()* 1000)
                         val newSunset = sdfSunset.format(dtr)
-                        sunset.text = "$newSunset PM"
+                        sunset.text = newSunset
 
                         content.visibility =View.VISIBLE
 
@@ -146,8 +143,11 @@ class TodayFragment : Fragment() {
                         CityInfo.cityname = cityname
                         CityInfo.lat = lat!!
                         CityInfo.lon = lon!!
+
                         loadHourlyForecast()
-                        itemRef.setValue(cityname)
+
+                        //Saves the city name in DB
+                        itemRef.push().setValue(cityname)
 
                     }
                 }
@@ -162,11 +162,13 @@ class TodayFragment : Fragment() {
         btnsearch.setOnClickListener{
             val city = searchfield.text.toString()
             if(city.isEmpty()) {
-                //Toast.makeText(activity, "Search field can't be empty!", Toast.LENGTH_SHORT).show()
+
+                //Alert Dialog
                 val builder = AlertDialog.Builder(requireContext())
                 builder.setTitle("Message")
                 builder.setMessage("Search field can't be empty!")
-                builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                builder.setPositiveButton(android.R.string.yes)
+                { dialog, which ->
                     Toast.makeText(activity?.applicationContext,
                         android.R.string.yes, Toast.LENGTH_SHORT).show()
                 }
@@ -176,8 +178,6 @@ class TodayFragment : Fragment() {
             }
             else {
                 getWeather(city)
-
-
                 searchfield.isEnabled = false
             }
             searchfield.isEnabled = true
@@ -187,10 +187,8 @@ class TodayFragment : Fragment() {
 
 
     fun loadHourlyForecast() {
+
         val cityname = CityInfo.cityname
-        //https://pro.openweathermap.org/data/2.5/forecast/hourly?q=beirut&appid=41afd91e8508faf248e58bef14ffea2d
-        //https://api.openweathermap.org/data/2.5/forecast?q=beirut&appid=41afd91e8508faf248e58bef14ffea2d&cnt=16
-        val baseUrlHourly = "https://api.openweathermap.org/data/2.5/forecast/"
 
 
         //Retrofit instance
@@ -200,9 +198,9 @@ class TodayFragment : Fragment() {
             .build()
         val HourlyForecastApi = retrofit.create(HourlyForecastApi::class.java)
 
+
         //OpenWeatherApi call
         val result = HourlyForecastApi.getHourlyWeather(cityname)
-        //Log.d("OK", result.h)
         result.enqueue(object : Callback<HourlyResult> {
             @SuppressLint("SetTextI18n", "SimpleDateFormat")
             override fun onResponse(call: Call<HourlyResult>, response: Response<HourlyResult>)
@@ -210,9 +208,10 @@ class TodayFragment : Fragment() {
                 if(response.isSuccessful)
                 {
                     val resp = response.body()
+
                     for (i : Hours in resp?.list!!)
                     {
-                        val sdfDate = SimpleDateFormat("HH")
+                        val sdfDate = SimpleDateFormat("HH:mm a")
                         val dt = Date(i.dt* 1000)
                         val newDate = sdfDate.format(dt)
 
@@ -229,19 +228,11 @@ class TodayFragment : Fragment() {
 
                                     override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {}
                                 })
-
-
                         }
-
                     }
-
-
-
                 }
             }
-
             override fun onFailure(call: Call<HourlyResult>, t: Throwable) {
-
             }
         })
     }

@@ -1,10 +1,15 @@
 package com.example.weatherapplication
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import com.example.weatherapplication.fragments.ForecastFragment
+import com.example.weatherapplication.fragments.GoogleMapsFragment
+import com.example.weatherapplication.fragments.TodayFragment
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -13,8 +18,7 @@ class NotificationFirebase: FirebaseMessagingService() {
 
         companion object
         {
-            @JvmStatic
-            val CHANNEL_ID = "1"
+            const val CHANNEL_ID = "1"
         }
 
         override fun onNewToken(token:String)
@@ -37,10 +41,37 @@ class NotificationFirebase: FirebaseMessagingService() {
                 notify(3, notificationBuilder.build())
             }
 
-            if (remoteMessage.notification!!.title =="Weather notification")
+            if (remoteMessage.notification!!.title =="WeatherApplication")
             {
-                Toast.makeText(applicationContext, "This is a notification", Toast.LENGTH_LONG).show()
+                //Alert Dialog
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Notification")
+                builder.setMessage("Notification is working! 🔥")
+
+                builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                    Toast.makeText(applicationContext,
+                        android.R.string.yes, Toast.LENGTH_SHORT).show()
+                }
+                builder.show()
             }
+
+           /* when (remoteMessage.notification!!.title) {
+                "Current weather" -> {
+                    val intent = Intent(this, TodayFragment::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
+                    startActivity(intent)
+                }
+                "7 days forecast" -> {
+                    val intent = Intent(this, ForecastFragment::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
+                    startActivity(intent)
+                }
+                "Maps" -> {
+                    val intent = Intent(this, GoogleMapsFragment::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
+                    startActivity(intent)
+                }
+            }*/
 
         }
 }

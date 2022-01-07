@@ -14,6 +14,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
@@ -30,7 +31,15 @@ class GoogleMapsFragment : Fragment() {
          * user has installed Google Play services and returned to the app.
          */
         val Coord = LatLng(CityInfo.lat, CityInfo.lon)
-        googleMap.addMarker(MarkerOptions().position(Coord).title("Marker in ${CityInfo.cityname}"))
+        googleMap.addMarker(MarkerOptions()
+            .position(Coord)
+            .title("Marker in ${CityInfo.cityname}")
+            .snippet("Lat: ${CityInfo.lat}    Lon: ${CityInfo.lon}")
+            .draggable(true)
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.location))
+
+
+        )
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(Coord))
     }
 

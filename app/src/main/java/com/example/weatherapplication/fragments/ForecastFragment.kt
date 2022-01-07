@@ -28,49 +28,37 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ForecastFragment : Fragment() {
+
     private lateinit var itemRecycleView: DailyAdapter
 
-
-
-    private val baseUrlToday = "https://api.openweathermap.org/data/2.5/weather/"
-    //private val baseUrl7days = "https://api.openweathermap.org/data/2.5/onecall/?lat="+ lat +"&lon="+ lon +"&exclude=minutely,hourly,current&appid=41afd91e8508faf248e58bef14ffea2d&units=metric"
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private val baseUrl7Days = "https://api.openweathermap.org/data/2.5/forecast/daily/"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         val view = inflater.inflate(R.layout.fragment_forecast, container, false)
+
         initRecycleView(view)
         loadDailyForecast()
 
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 
-
-    fun loadDailyForecast() {
-        val cityname = CityInfo.cityname
-        val baseUrl7days = "https://api.openweathermap.org/data/2.5/forecast/daily/"
+    private fun loadDailyForecast() {
+        val cityName = CityInfo.cityname
 
         //Retrofit instance
         val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl7days)
+            .baseUrl(baseUrl7Days)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val DailyForecastApi = retrofit.create(DailyForecastApi::class.java)
+        val dailyForecastApi = retrofit.create(DailyForecastApi::class.java)
 
         //OpenWeatherApi call
-        val result = DailyForecastApi.getDailyWeather(cityname)
+        val result = dailyForecastApi.getDailyWeather(cityName)
         result.enqueue(object : Callback<DailyForecast> {
             @SuppressLint("SetTextI18n", "SimpleDateFormat")
             override fun onResponse(call: Call<DailyForecast>, response: Response<DailyForecast>)
@@ -78,8 +66,10 @@ class ForecastFragment : Fragment() {
                 if(response.isSuccessful)
                 {
                     val resp = response.body()
+
                     for (i : Days in resp?.list!!)
                     {
+                        //Converting date
                         val sdfDate = SimpleDateFormat("EEE dd, MMMM")
                         val dt = Date(i.dt* 1000)
                         val newDate = sdfDate.format(dt)
@@ -92,24 +82,14 @@ class ForecastFragment : Fragment() {
                                         override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
                                             itemRecycleView.add(DailyItems(newDate, bitmap!!, "↑ ${i.temp.max}°C ", "↓ ${i.temp.min}°C"))
                                         }
-
                                         override fun onPrepareLoad(placeHolderDrawable: Drawable?) {}
-
                                         override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {}
                                 })
-
-
                         }
-
                     }
-
-
-
                 }
             }
-
             override fun onFailure(call: Call<DailyForecast>, t: Throwable) {
-
             }
         })
     }
@@ -121,5 +101,4 @@ class ForecastFragment : Fragment() {
         itemRecycleView = DailyAdapter()
         recycleView.adapter = itemRecycleView
     }
-
 }
