@@ -26,20 +26,20 @@ class NotificationFirebase: FirebaseMessagingService() {
         {
             super.onMessageReceived(remoteMessage)
 
-            val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+            val notificationBuilder = NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_weather_foreground)
                 .setContentTitle(remoteMessage.notification!!.title)
                 .setContentText(remoteMessage.notification!!.body)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
             with(NotificationManagerCompat.from(this))
             {
-                notify(3, builder.build())
+                notify(3, notificationBuilder.build())
             }
 
-            if (remoteMessage.notification!!.title =="WeatherH notification")
+            if (remoteMessage.notification!!.title =="Weather notification")
             {
-                Log.d("Notification", "This a notification from Firebase")
+                Toast.makeText(applicationContext, "This is a notification", Toast.LENGTH_LONG).show()
             }
 
         }

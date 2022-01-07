@@ -43,6 +43,7 @@ class DailyAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyItemInserted(0)
     }
 
+
     class ViewHolder constructor(itemView:View) : RecyclerView.ViewHolder(itemView)
     {
         private val date = itemView.findViewById<TextView>(R.id.txtDate)

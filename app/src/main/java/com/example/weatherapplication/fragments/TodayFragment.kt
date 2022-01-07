@@ -56,6 +56,7 @@ class TodayFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_today, container, false)
 
+
         initRecycleViewH(view)
 
         //Saving Cityname to DB
@@ -148,8 +149,6 @@ class TodayFragment : Fragment() {
                         loadHourlyForecast()
                         itemRef.setValue(cityname)
 
-
-
                     }
                 }
                 override fun onFailure(call: Call<WeatherResult>, t: Throwable) {
@@ -157,6 +156,8 @@ class TodayFragment : Fragment() {
             })
 
         }
+
+        getWeather(CityInfo.cityname)
 
         btnsearch.setOnClickListener{
             val city = searchfield.text.toString()
@@ -221,7 +222,7 @@ class TodayFragment : Fragment() {
                                 .resize(150,150)
                                 .into(object : com.squareup.picasso.Target {
                                     override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                                        itemRecycleView.add(HourlyItems("${i.dtTxt}", bitmap!!, "${i.main.temp}°C"))
+                                        itemRecycleView.add(HourlyItems(newDate, bitmap!!, "${i.main.temp}°C"))
                                     }
 
                                     override fun onPrepareLoad(placeHolderDrawable: Drawable?) {}
@@ -248,7 +249,7 @@ class TodayFragment : Fragment() {
     private fun initRecycleViewH(view:View)
     {
         val recycleView = view.findViewById<RecyclerView>(R.id.recyclerviewHours)
-        recycleView.layoutManager = LinearLayoutManager(this@TodayFragment.context)
+        recycleView.layoutManager = LinearLayoutManager(this@TodayFragment.context, LinearLayoutManager.HORIZONTAL, false)
         itemRecycleView = HourlyAdapter()
         recycleView.adapter = itemRecycleView
     }
