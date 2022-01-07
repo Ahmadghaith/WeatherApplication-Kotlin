@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".fragments.TodayFragment">
 
+
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -94,6 +97,7 @@
                     android:gravity="center_horizontal|center_vertical"
                     android:orientation="horizontal"
                     android:padding="5dp">
+
 
                     <ImageView
                         android:id="@+id/Icon"
@@ -187,7 +191,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -224,7 +228,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -233,7 +237,6 @@
                             android:id="@+id/hum"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:contentDescription="TODO"
                             android:src="@drawable/humidity" />
 
                         <Space
@@ -262,7 +265,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -307,7 +310,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -344,7 +347,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -381,7 +384,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -425,7 +428,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -462,7 +465,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="#3CF1EBF1"
+                        android:background="@drawable/rounded_searchbar"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:padding="8dp">
@@ -493,8 +496,29 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/rl10"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/rl9"
+                    android:orientation="horizontal">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerviewHours"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/hourly_item" />
+
+
+
+                </LinearLayout>
+
 
             </RelativeLayout>
+
+
 
 
         </RelativeLayout>
