@@ -1,11 +1,11 @@
 ## About The Project 🌦
 
-WeatherApplication is a simple weather forecast app, which uses an API to fetch 7 day / 3 hour forecast data from the [OpenWeatherMap](https://openweathermap.org/) to fetch temperatures, coords, time, condition, etc...
-and saves the searched city names in a Real Time DB using [Firebase](https://firebase.google.com/docs/database/android/read-and-write) 🔥
+WeatherApplication is a simple weather forecast app, that uses an API to fetch 7-day / 3-hour forecast data from the [OpenWeatherMap](https://openweathermap.org/) to fetch temperatures, coords, time, condition, etc...
+and saves the searched city names in a Real-time DB using [Firebase](https://firebase.google.com/docs/database/android/read-and-write) 🔥
 
-I wish I could add more stuff into this project but I was limited with time ⌛
+I wish I could add more stuff to this project but I was limited with time ⌛
 
-I hope you like this project and found it useful! 🙏
+I hope you like it and find it useful! 🙏
 
 ### Libraries and tools 🛠
 
